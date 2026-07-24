@@ -1,0 +1,10 @@
+RewriteEngine On
+
+# Ensure Authorization header is passed through to PHP
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+# Rewrite extensionless URLs to .html files (e.g. /admin -> admin.html)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^([^/]+)/?$ $1.html [L]
